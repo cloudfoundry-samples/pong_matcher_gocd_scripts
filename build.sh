@@ -7,4 +7,4 @@ dir=$APP_NAME
 cp -a ../app $dir/
 docker pull $docker_tag || true
 docker build $DOCKER_BUILD_OPTS -t $docker_tag $dir
-docker push $DOCKER_TAG
+docker push $docker_tag
