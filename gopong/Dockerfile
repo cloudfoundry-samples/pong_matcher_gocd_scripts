@@ -33,5 +33,6 @@ USER    web
 WORKDIR /home/web/go/src/pong_matcher_go
 ENV     PATH $PATH:/home/web/go/bin
 RUN 	godep restore
-RUN     go test
+RUN     go get github.com/onsi/ginkgo/ginkgo
+RUN     ginkgo -noColor
 WORKDIR /
