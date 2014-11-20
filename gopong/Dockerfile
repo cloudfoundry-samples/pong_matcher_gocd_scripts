@@ -25,12 +25,12 @@ RUN     mkdir -p /home/web/go/src
 RUN     go get github.com/tools/godep
 
 USER    root
-ADD     app /home/web/go/src/pong_matcher_go
-RUN     chown -R web:web /home/web/go/src/pong_matcher_go
-RUN     ln -s /home/web/go/src/pong_matcher_go /pong_matcher
+ADD     app /home/web/go/src/github.com/camelpunch/pong_matcher_go
+RUN     chown -R web:web /home/web/go/src
+RUN     ln -s /home/web/go/src/github.com/camelpunch/pong_matcher_go /pong_matcher
 
 USER    web
-WORKDIR /home/web/go/src/pong_matcher_go
+WORKDIR /home/web/go/src/github.com/camelpunch/pong_matcher_go
 ENV     PATH $PATH:/home/web/go/bin
 RUN 	godep restore
 RUN     go get github.com/onsi/ginkgo/ginkgo
