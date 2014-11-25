@@ -18,6 +18,9 @@ RUN     tar -zxf godeb.tar.gz
 RUN     ./godeb install 1.3.3
 RUN     apt-get install -qq git mercurial
 
+# install mysql
+RUN     apt-get install -qq mysql-server
+
 # install and test app as unprivileged user
 USER    web
 ENV     GOPATH /home/web/go
@@ -32,7 +35,13 @@ RUN     ln -s /home/web/go/src/github.com/camelpunch/pong_matcher_go /pong_match
 USER    web
 WORKDIR /home/web/go/src/github.com/camelpunch/pong_matcher_go
 ENV     PATH $PATH:/home/web/go/bin
-RUN 	godep restore
-RUN     go get github.com/onsi/ginkgo/ginkgo
-RUN     ginkgo -noColor
+RUN     godep restore
+
+USER    root
+RUN     service mysql start &&\
+        echo "CREATE DATABASE pong_matcher_go_test;" | mysql -u root &&\
+        echo "GRANT ALL ON pong_matcher_go_test.* TO 'gopong'@'localhost' IDENTIFIED BY 'gopong';" | mysql -u root &&\
+	su -c "go test -v ./... -ginkgo.noColor" web
+
+USER    web
 WORKDIR /
