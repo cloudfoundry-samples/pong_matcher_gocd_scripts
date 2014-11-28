@@ -12,14 +12,14 @@ RUN     adduser --disabled-password web
 ADD     https://cli.run.pivotal.io/stable?release=debian64&source=github cf.deb
 RUN     dpkg -i cf.deb
 
+# install mysql
+RUN     apt-get install -qq mysql-server
+
 # install golang
 ADD     https://godeb.s3.amazonaws.com/godeb-amd64.tar.gz godeb.tar.gz
 RUN     tar -zxf godeb.tar.gz
 RUN     ./godeb install 1.3.3
 RUN     apt-get install -qq git mercurial
-
-# install mysql
-RUN     apt-get install -qq mysql-server
 
 # install and test app as unprivileged user
 USER    web
