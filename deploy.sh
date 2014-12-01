@@ -8,7 +8,7 @@ docker pull $docker_tag
 docker run \
     -e "CF_COLOR=false" \
     -e "CF_HOME=/pong_matcher" \
-    -t $docker_tag
+    -t $docker_tag \
     /bin/bash -c "\
     cd pong_matcher
     cf api https://api.run.pivotal.io
