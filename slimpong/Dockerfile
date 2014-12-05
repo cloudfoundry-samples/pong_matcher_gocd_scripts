@@ -23,7 +23,6 @@ RUN     chown -R web:web /pong_matcher
 
 USER    web
 WORKDIR /pong_matcher
-RUN     curl -sS https://getcomposer.org/installer | php
 RUN     php composer.phar update
 RUN     vendor/bin/phpunit test/
 
