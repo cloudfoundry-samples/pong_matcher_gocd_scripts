@@ -15,6 +15,7 @@ RUN     dpkg -i cf.deb
 # install php
 RUN     apt-get install -qq git
 RUN     apt-get install -qq php5
+RUN     apt-get install -qq php5-sqlite
 RUN     apt-get install -qq curl
 
 # install and test app as unprivileged user
