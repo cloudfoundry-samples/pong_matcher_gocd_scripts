@@ -42,6 +42,9 @@ RUN     gem install bundler
 
 # run tests as part of build - should fail if tests fail
 WORKDIR /pong_matcher
-RUN     bundle
+RUN     bundle install --binstubs
 USER    root
 RUN     service mysql start && su web -c 'PATH=/opt/rubies/ruby-2.1.5/bin:$PATH bin/rake db:create db:migrate test:prepare test'
+
+USER    web
+WORKDIR /
